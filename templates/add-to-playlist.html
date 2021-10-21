@@ -1,0 +1,23 @@
+{% extends 'index.html' %}
+
+{% block title %}
+    Add to Playlist
+{% endblock %}
+
+{% block content %}
+<h1>Search Song</h1>
+<form method="POST" action="">
+    Enter Song name: <input type="text" name="song_name" />
+    <br>
+    <input type="submit" />
+
+</form>
+{% if exists %}
+<h2>This song already exists in the playlist</h2>
+{% endif %}
+{% if song_info %}
+
+<h2>Your song has been added successfully!</h2>
+
+{% endif %}
+{% endblock %}>

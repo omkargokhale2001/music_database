@@ -1,0 +1,24 @@
+{% extends 'index.html' %}
+
+{% block title %}
+    Albums Page
+{% endblock %}
+
+{% block content %}
+<h2>Albums</h2>
+<form method="POST" action="">
+    Enter Album Name <input type="text" name="album_name" />
+    <br>
+    <input type="submit" />
+</form>
+{% if names %}
+<h1>{{album_name}}</h1>
+{% for i in range(names[-1]) %}
+<div>
+    <h2>{{names[i]}}</h2>
+    <iframe width="560" height="315" src={{urls[i]}} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+<hr>
+{% endfor %}
+{% endif %}
+{% endblock %}>

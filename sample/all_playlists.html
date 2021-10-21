@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>All playlists</title>
+</head>
+<body>
+<h1>All playlists</h1>
+<a href="/create_playlist"><button>New Playlist</button></a>
+{% for p in playlists %}
+<h2><a href="all_playlists/{{p}}">{{ p }}</a></h2>
+{% endfor %}
+</body>
+</html>

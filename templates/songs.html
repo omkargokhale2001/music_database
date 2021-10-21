@@ -1,0 +1,26 @@
+{% extends 'index.html' %}
+
+{% block title %}
+    Songs Page
+{% endblock %}
+
+{% block content %}
+<h2>Songs</h2>
+<form method="POST" action="">
+    Search Song <input type="text" name="name" />
+    <br>
+    <input type="submit" />
+</form>
+{% if result %}
+<h2>{{result}}</h2>
+<iframe width="560" height="315" src={{url}} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+{% endif %}
+{% if names %}
+{% for i in range(0,4) %}
+<div>
+    <h2>{{names[i]}}</h2>
+    <iframe width="560" height="315" src={{urls[i]}} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+{% endfor %}
+{% endif %}
+{% endblock %}>

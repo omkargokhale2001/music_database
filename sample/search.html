@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Song Search</title>
+</head>
+<body>
+<h1>Song Search</h1>
+<form method="POST" action="">
+    Search Song <input type="text" name="name" />
+    <br>
+    <input type="submit" />
+</form>
+{% if result %}
+
+<h2>{{result}}</h2>
+<iframe width="560" height="315" src={{url}} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+{% endif %}
+</body>
+</html>

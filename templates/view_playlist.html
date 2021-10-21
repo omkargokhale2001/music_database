@@ -1,0 +1,20 @@
+{% extends 'index.html' %}
+
+{% block title %}
+    Playlist
+{% endblock %}
+
+{% block content %}
+<h1>{{name}}</h1>
+<a href="/all_playlists/{{name}}/add_songs"><button>Add song</button></a>
+{% if names %}
+<h1>{{artist_name}}</h1>
+{% for i in range(names[-1]) %}
+<div>
+    <h2>{{names[i]}}</h2>
+    <iframe width="560" height="315" src={{urls[i]}} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+<hr>
+{% endfor %}
+{% endif %}
+{% endblock %}>

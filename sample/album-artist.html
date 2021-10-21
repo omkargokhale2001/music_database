@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Album Search</title>
+</head>
+<body>
+<h1>Album Search</h1>
+<form method="POST" action="">
+    Enter Artist: <input type="text" name="artist_name" />
+    <br>
+    <input type="submit" />
+</form>
+{% if albums %}
+
+<h2>{{albums}}</h2>
+
+{% endif %}
+</body>
+</html>
