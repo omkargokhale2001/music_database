@@ -7,9 +7,15 @@
 {% block content %}
 <h2>Artists</h2>
 <form method="POST" action="">
-    Enter Artist: <input type="text" name="artist_name" />
-    <br>
-    <input type="submit" />
+<div class="input-group">
+  <div class="form-outline">
+    <input id="search-input" type="search" id="form1" class="form-control" name="artist_name" placeholder="Search Artists"/>
+    <label class="form-label" for="form1"></label>
+  </div>
+  <button id="search-button" type="submit" class="btn btn-primary">
+    <i class="fas fa-search"></i>
+  </button>
+</div>
 </form>
 {% if names %}
 <h1>{{artist_name}}</h1>

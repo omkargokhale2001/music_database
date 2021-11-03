@@ -27,11 +27,10 @@
         <!-- Sidebar  -->
         <nav id="sidebar">
             <div class="sidebar-header">
-                <h3>Drop The Beat</h3>
+                <h3>Menu</h3>
             </div>
 
             <ul class="list-unstyled components">
-                <p>Menu</p>
                 <li>
                     <a href="/song_search/song_name">Songs</a>
                 </li>
@@ -52,8 +51,8 @@
 
 
         <!-- Page Content  -->
-        <h1>Hello {{name}}</h1>
-        <a href="{{ url_for('logout') }}" class="btn">Logout</a>
+
+
         <div id="content">
 
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -66,18 +65,20 @@
                     <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <i class="fas fa-align-justify"></i>
                     </button>
-
+                    <a href="{{url_for('index')}}"><h2>App name</h2></a>
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="nav navbar-nav ml-auto">
                             <li class="nav-item active">
-                            <div class="input-group rounded">
-                                <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
-                                <span class="input-group-text border-0" id="search-addon">
-                                    <i class="fas fa-search"></i>
-                                </span>
-                            </div>
+<!--                            <div class="input-group rounded">-->
+<!--                                <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />-->
+<!--                                <span class="input-group-text border-0" id="search-addon">-->
+<!--                                    <i class="fas fa-search"></i>-->
+<!--                                </span>-->
+<!--                            </div>-->
                             </li>
-
+                        <li>
+                            <a href="{{ url_for('logout') }}" class="btn">Logout</a>
+                        </li>
                         </ul>
                     </div>
                 </div>
@@ -85,6 +86,11 @@
 
             <!-- Future Content here -->
             {% block content %}
+            <div class="container1">
+  <img src="{{ url_for('static', filename='images/neon.jpg') }}" alt="Snow" style="width:100%;">
+  <div class="top-left">{{msg}}</div>
+</div>
+<!--            <h1>{{msg}}</h1>-->
 
             {% endblock %}
         </div>
@@ -106,14 +112,6 @@
     </div>
 </body>
 <style>
-body{
-background:#fafafa;
-}
-* {
-  box-sizing: border-box;
-
-}
-
 .column {
   float: left;
   width: 25%;

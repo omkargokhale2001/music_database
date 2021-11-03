@@ -27,7 +27,9 @@ mysql = MySQL(app)
 
 @app.route('/', methods=['GET'])
 def index():
-    return render_template('index.html', x="Music Player")
+    name = session['name']
+    msg = "Welcome " + str(name)
+    return render_template('index.html', msg=msg)
 
 # Searching by name
 @app.route('/song_search/song_name', methods=['GET','POST'])
@@ -49,7 +51,7 @@ def search_song():
         return render_template('songs.html', result=result, url=song_url)
     else:
         cur = mysql.connection.cursor()
-        cur.execute("SELECT * FROM Songs ORDER BY RAND() LIMIT 4")
+        cur.execute("SELECT * FROM Songs ORDER BY RAND() LIMIT 6")
         song_details = cur.fetchall()
         print(song_details)
         names = []
@@ -303,7 +305,7 @@ def login():
             session['email'] = account['email']
             msg = 'Logged in successfully !'
             print(msg)
-            return render_template('index.html', msg=msg, name=session['name'])
+            return redirect(url_for("index"))
         else:
             msg = 'Incorrect username / password !'
         print(msg)
@@ -323,3 +325,4 @@ if __name__ == '__main__':
     app.config['TEMPLATES_AUTO_RELOAD'] = True
     app.run(debug=True)
 
+# render_template('index.html', msg=msg, name=session['name'])

@@ -1,25 +1,60 @@
+<!--<!DOCTYPE html>-->
+<!--<html>-->
+<!--    <head>-->
+<!--        <meta charset="UTF-8">-->
+<!--        <title> Login </title>-->
+<!--    </head>-->
+<!--    <body></br></br></br></br></br>-->
+<!--        <div align="center">-->
+<!--          <div align="center" class="border">-->
+<!--             <div class="header">-->
+<!--                <h1 class="word">Login</h1>-->
+<!--             </div></br></br></br>-->
+<!--            <h2 class="word">-->
+<!--                <form action="{{ url_for('login') }}" method="post">-->
+<!--                  <div class="msg">{{ msg }}</div>-->
+<!--                    <input id="email" name="email" type="text" placeholder="Enter Your Username" class="textbox"/></br></br>-->
+<!--                    <input id="password" name="password" type="password" placeholder="Enter Your Password" class="textbox"/></br></br></br>-->
+<!--                    <input type="submit" class="btn" value="Sign In"></br></br>-->
+<!--                </form>-->
+<!--            </h2>-->
+<!--            <p class="bottom">Dont't have an account?  <a class="bottom" href="{{url_for('register')}}"> Sign Up here</a></p>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--    </body>-->
+<!--</html>-->
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title> Login </title>
-    </head>
-    <body></br></br></br></br></br>
-        <div align="center">
-          <div align="center" class="border">
-             <div class="header">
-                <h1 class="word">Login</h1>
-             </div></br></br></br>
-            <h2 class="word">
-                <form action="{{ url_for('login') }}" method="post">
-                  <div class="msg">{{ msg }}</div>
-                    <input id="email" name="email" type="text" placeholder="Enter Your Username" class="textbox"/></br></br>
-                    <input id="password" name="password" type="password" placeholder="Enter Your Password" class="textbox"/></br></br></br>
-                    <input type="submit" class="btn" value="Sign In"></br></br>
-                </form>
-            </h2>
-            <p class="bottom">Dont't have an account?  <a class="bottom" href="{{url_for('register')}}"> Sign Up here</a></p>
-          </div>
-        </div>
-    </body>
+<head>
+ <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+</head>
+
+<body>
+<div class="wrapper fadeInDown">
+  <div id="formContent">
+    <!-- Tabs Titles -->
+
+    <!-- Icon -->
+    <div class="fadeIn first">
+<!--      <img src="http://danielzawadzki.com/codepen/01/icon.svg" id="icon" alt="User Icon" />-->
+    </div>
+
+    <!-- Login Form -->
+    <form action="{{ url_for('login') }}" method="post">
+      <div class="msg">{{ msg }}</div>
+      <input type="text" id="email" class="fadeIn second" name="email" placeholder="login">
+      <input type="text" id="password" type="password" class="fadeIn third" name="password" placeholder="password">
+      <input type="submit" class="fadeIn fourth" value="Sign In">
+    </form>
+
+    <!-- Remind Passowrd -->
+    <p class="bottom">Dont't have an account?  <a class="bottom" href="{{url_for('register')}}"> Sign Up here</a></p>
+
+  </div>
+</div>
+</body>
 </html>

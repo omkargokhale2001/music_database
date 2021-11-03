@@ -5,7 +5,7 @@
 @import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
 body {
     font-family: 'Poppins', sans-serif;
-    background: #fafafa;
+    background: #181818;
 }
 
 p {
@@ -59,8 +59,8 @@ a:focus {
 #sidebar {
     min-width: 250px;
     max-width: 250px;
-    background: #7386D5;
-    color: #fff;
+    background: #000000;
+    color: #fafafa;
     transition: all 0.3s;
 }
 
@@ -70,7 +70,7 @@ a:focus {
 
 #sidebar .sidebar-header {
     padding: 20px;
-    background: #6d7fcc;
+    background: #000000;
 }
 
 #sidebar ul.components {
@@ -152,6 +152,36 @@ a.article:hover {
     transition: all 0.3s;
 }
 
+/* Container holding the image and the text */
+.container1 {
+  position: relative;
+  text-align: center;
+  color: white;
+}
+
+
+/* Top left text */
+.top-left {
+  position: absolute;
+  top: 8px;
+  left: 16px;
+}
+
+/*Songs search bar*/
+.input-group {
+
+  position:absolute;
+  top:20%;
+  left:80%;
+
+}
+.btn-primary{
+height:fit-content;
+background-color:#17a2b8;
+}
+
+
+
 /* ---------------------------------------------------
     MEDIAQUERIES
 ----------------------------------------------------- */
@@ -167,3 +197,5 @@ a.article:hover {
         display: none;
     }
 }
+
+

@@ -7,9 +7,15 @@
 {% block content %}
 <h2>Albums</h2>
 <form method="POST" action="">
-    Enter Album Name <input type="text" name="album_name" />
-    <br>
-    <input type="submit" />
+<div class="input-group">
+  <div class="form-outline">
+    <input id="search-input" type="search" id="form1" class="form-control" name="album_name" placeholder="Search Albums"/>
+    <label class="form-label" for="form1"></label>
+  </div>
+  <button id="search-button" type="submit" class="btn btn-primary">
+    <i class="fas fa-search"></i>
+  </button>
+</div>
 </form>
 {% if names %}
 <h1>{{album_name}}</h1>
