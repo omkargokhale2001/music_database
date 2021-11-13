@@ -1,0 +1,26 @@
+{% extends 'index.html' %}
+
+{% block title %}
+    Add to Playlist
+{% endblock %}
+
+{% block content %}
+<h1>Insert Song</h1>
+<form method="POST" action="">
+    Enter Song name: <input type="text" name="song_name" />
+    <br>
+    Enter Album name: <input type="text" name="album_name" />
+    <br>
+    Enter Artist name: <input type="text" name="artist_name" />
+    <br>
+    Enter song url: <input type="text" name="song_url" />
+    <br>
+    Enter Release Date: <input type="text" name="date" />
+    <br>
+    <input type="submit" />
+</form>
+
+<h2>{{msg}}</h2>
+
+
+{% endblock %}>

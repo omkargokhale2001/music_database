@@ -3,7 +3,8 @@ from flask_mysqldb import MySQL
 import yaml
 import MySQLdb.cursors
 import re
-
+from flask_bcrypt import Bcrypt
+import pandas as pd
 
 app = Flask(__name__)
 
@@ -23,13 +24,95 @@ app.config['MYSQL_PASSWORD'] = db['mysql_password']
 app.config['MYSQL_DB'] = db['mysql_db']
 
 mysql = MySQL(app)
+bcrypt = Bcrypt(app)
+
+
+
+def insert_excel(dict_info):
+    msg = ""
+    song_name = dict_info['song_name']
+    song_url = dict_info['song_url']
+    date = dict_info['date']
+    artist_name = dict_info['artist_name']
+    album_name = dict_info['album_name']
+    cur = mysql.connection.cursor()
+    cur.execute("SELECT * FROM Songs WHERE song_name=%s", [song_name])
+    song = cur.fetchall()
+    if not song:
+        cur.execute("SELECT * FROM Album WHERE album_name=%s", [album_name])
+        album = cur.fetchall()
+        if not album:
+            cur.execute("SELECT * FROM Artist WHERE name=%s", [artist_name])
+            artist = cur.fetchall()
+            if not artist:
+                cur.execute("SELECT MAX(artist_id) FROM Artist")
+                curr_artist_id = cur.fetchall()
+                curr_artist_id = curr_artist_id[0][0]
+                curr_artist_id += 1
+                cur.execute("INSERT INTO Artist VAlUES(%s,%s)", [artist_name, curr_artist_id])
+                mysql.connection.commit()
+                cur.execute("SELECT * FROM Artist WHERE name=%s", [artist_name])
+                artist = cur.fetchall()
+            curr_artist_id = int(artist[0][1])
+            cur.execute("SELECT MAX(album_id) FROM Album")
+            curr_album_id = cur.fetchall()[0][0] + 1
+            cur.execute("INSERT INTO Album VALUES(%s,%s,%s,%s)", [curr_album_id, curr_artist_id, album_name, date])
+            mysql.connection.commit()
+            cur.execute("SELECT * FROM Album WHERE album_name=%s", [album_name])
+            album = cur.fetchall()
+        curr_album_id = int(album[0][0])
+        curr_artist_id = int(album[0][1])
+        cur.execute("SELECT MAX(song_id) FROM Songs")
+        song = cur.fetchall()
+        song_id = int(song[0][0]) + 1
+        cur.execute("INSERT INTO Songs VALUES(%s,%s,%s,%s,%s)",
+                        [song_id, song_name, song_url, curr_album_id, curr_artist_id])
+        mysql.connection.commit()
+        msg = "Song entered successfully"
+    return msg
+
+def run_excel():
+    df = df = pd.read_csv("songs.csv")
+    df = df.drop([16, 20], axis=0)
+
+    def change_date(date):
+        date = date[6:] + "-" + date[3:5] + "-" + date[0:2]
+        return date
+    df['Release date of album'] = df['Release date of album'].apply(lambda x: change_date(x))
+    df = df.drop([0, 1, 2, 3, 4, 5], axis=0)
+    df = df.reset_index()
+    for j in range(len(df)):
+        dict_info = dict()
+        dict_info['song_name'] = df['Song name'].iloc[j]
+        dict_info['album_name'] = df['Album name'].iloc[j]
+        dict_info['artist_name'] = df['Artist Name'].iloc[j]
+        dict_info['date'] = df['Release date of album'].iloc[j]
+        dict_info['song_url'] = df['Embedded URL'].iloc[j]
+        insert_excel(dict_info)
+
+
+
 
 
 @app.route('/', methods=['GET'])
 def index():
-    name = session['name']
-    msg = "Welcome " + str(name)
-    return render_template('index.html', msg=msg)
+    if session:
+        name = session['name']
+        msg = "Welcome " + str(name)
+        return render_template('index.html', msg=msg)
+    else:
+        return render_template('login.html')
+
+@app.route('/insert_excel', methods=['GET'])
+def add_from_excel():
+    if session:
+        if session['name'] == "admin":
+            run_excel()
+        else:
+            return render_template('page_not_found.html')
+    else:
+        return render_template('page_not_found.html')
+
 
 # Searching by name
 @app.route('/song_search/song_name', methods=['GET','POST'])
@@ -96,84 +179,53 @@ def search_album():
     return render_template('artists.html')
 
 
-# @app.route('/add_song', methods=['GET', 'POST'])
-# def insert_song():
-#     if request.method == 'POST':
-#         current_song_id = 0
-#         current_album_id = 0
-#         current_artist_id = 0
-#         songPresent = True
-#         artistPresent = True
-#         albumPresent = True
-#         song_Details = request.form
-#         song_name = song_Details['song_name']
-#         artist_name = song_Details['artist_name']
-#         album_name = song_Details['album_name']
-#         song_url = song_Details['song_url']
-#         release_date = song_Details['release_date']
-#
-#         cur = mysql.connection.cursor()
-#         cur.execute("SELECT song_name FROM Songs")
-#         songs = cur.fetchall()
-#         songs = [j[0] for j in songs]
-#         if song_name in songs:
-#             return render_template('add-song.html', status="Song is already present!")
-#         else:
-#             cur.execute("SELECT song_id FROM Songs ORDER BY song_id DESC LIMIT 1")
-#             id_list = cur.fetchall()
-#             if len(id_list) == 0:
-#                 current_song_id = 1
-#             else:
-#                 current_song_id = int(id_list[0][0]) + 1
-#             songPresent = False
-#
-#         cur.execute("SELECT album_name FROM Album")
-#         albums = cur.fetchall()
-#         albums = [j[0] for j in albums]
-#         print(albums)
-#         if album_name not in albums:
-#             cur.execute("SELECT album_id FROM Album ORDER BY album_id DESC LIMIT 1")
-#             id_list = cur.fetchall()
-#             current_album_id = int(id_list[0][0]) + 1
-#             cur.execute("SELECT name FROM Artist")
-#             artists = cur.fetchall()[0][0]
-#             artists = [j[0] for j in artists]
-#             albumPresent = False
-#             if artist_name not in artists:
-#                 cur.execute("SELECT artist_id FROM Artist ORDER BY artist_id DESC LIMIT 1")
-#                 if len(cur.fetchall()):
-#                     current_artist_id = 1
-#                 else:
-#                     current_artist_id = int(cur.fetchall()[0][0]) + 1
-#                 artistPresent = False
-#             else:
-#                 cur.execute("SELECT artist_id from Artist WHERE name=%s", [artist_name])
-#                 current_artist_id = cur.fetchall()[0][0]
-#         else:
-#             cur.execute("SELECT album_id from Album WHERE album_name=%s", [album_name])
-#             current_album_id = cur.fetchall()[0][0]
-#         if songPresent:
-#             return render_template('add-song.html', status="Song is already present!")
-#         else:
-#             if albumPresent:
-#                 pass
-#             else:
-#                 if artistPresent:
-#                     pass
-#                 else:
-#                     cur.execute("INSERT INTO Artist values(%s,%s)", [artist_name, current_artist_id])
-#                     mysql.connection.commit()
-#                 cur.execute("INSERT INTO Album values(%s,%s,%s,%s)",
-#                             [current_album_id, current_artist_id, album_name, release_date])
-#                 mysql.connection.commit()
-#             cur.execute("INSERT INTO Songs values(%s,%s,%s,%s,%s)", [current_song_id, song_name, song_url, current_album_id, current_artist_id])
-#             mysql.connection.commit()
-#             return render_template('add-song.html', status="Song Inserted!")
-#     return render_template('add-song.html')
+@app.route('/add_song', methods=['GET', 'POST'])
+def insert_song():
+    msg = "Song already exists!"
+    if request.method == 'POST':
+        song_name = request.form['song_name']
+        song_url = request.form['song_url']
+        date = "2018-03-01"
+        artist_name = request.form['artist_name']
+        album_name = request.form['album_name']
+        cur = mysql.connection.cursor()
+        cur.execute("SELECT * FROM Songs WHERE song_name=%s", [song_name])
+        song = cur.fetchall()
+        if not song:
+            cur.execute("SELECT * FROM Album WHERE album_name=%s", [album_name])
+            album = cur.fetchall()
+            if not album:
+                cur.execute("SELECT * FROM Artist WHERE name=%s", [artist_name])
+                artist = cur.fetchall()
+                if not artist:
+                    cur.execute("SELECT MAX(artist_id) FROM Artist")
+                    curr_artist_id = cur.fetchall()
+                    curr_artist_id = curr_artist_id[0][0]
+                    curr_artist_id += 1
+                    cur.execute("INSERT INTO Artist VAlUES(%s,%s)", [artist_name, curr_artist_id])
+                    mysql.connection.commit()
+                    cur.execute("SELECT * FROM Artist WHERE name=%s", [artist_name])
+                    artist = cur.fetchall()
+                curr_artist_id = int(artist[0][1])
+                cur.execute("SELECT MAX(album_id) FROM Album")
+                curr_album_id = cur.fetchall()[0][0] + 1
+                cur.execute("INSERT INTO Album VALUES(%s,%s,%s,%s)",[curr_album_id,curr_artist_id,album_name,date])
+                mysql.connection.commit()
+                cur.execute("SELECT * FROM Album WHERE album_name=%s", [album_name])
+                album = cur.fetchall()
+            curr_album_id = int(album[0][0])
+            curr_artist_id = int(album[0][1])
+            cur.execute("SELECT MAX(song_id) FROM Songs")
+            song = cur.fetchall()
+            song_id = int(song[0][0]) + 1
+            cur.execute("INSERT INTO Songs VALUES(%s,%s,%s,%s,%s)", [song_id,song_name,song_url,curr_album_id,curr_artist_id])
+            mysql.connection.commit()
+            msg = "Song entered successfully"
+    return render_template("add_song.html", msg=msg)
+
 
 @app.route('/create_playlist', methods=['GET', 'POST'])
 def create_playlist():
-
     if request.method == 'POST':
         name = request.form['playlist_name']   #p1
         cur = mysql.connection.cursor()
@@ -254,9 +306,10 @@ def add_to_playlist(name):
 @app.route('/signup',methods=['GET','POST'])
 def register():
     msg = ''
+
     if request.method == 'POST' and 'name' in request.form and 'password' in request.form and 'email' in request.form:
         name = request.form['name']
-        password = request.form['password']
+        password = bcrypt.generate_password_hash(request.form['password'])
         email = request.form['email']
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         cursor.execute('SELECT * FROM Users WHERE email = % s', [email])
@@ -293,12 +346,14 @@ def login():
         print("Flag3")
         email = request.form['email']
         password = request.form['password']
+        print(password)
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute('SELECT * FROM Users WHERE email = % s AND password = % s', [email, password])
+        cursor.execute('SELECT * FROM Users WHERE email = % s', [email])
         print("Flag2")
         account = cursor.fetchone()
         print("Flag1")
-        if account:
+        password_check = bcrypt.check_password_hash(account['password'], password)
+        if account and password_check:
             session['loggedin'] = True
             session['id'] = account['id']
             session['name'] = account['name']
