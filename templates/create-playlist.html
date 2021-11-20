@@ -5,10 +5,23 @@
 {% endblock %}
 
 {% block content %}
+<h4 style="color:white;">Enter Playlist Name</h4>
 <form method="POST" action="">
-    Enter Playlist name: <input type="text" name="playlist_name" />
-    <br>
-    <input type="submit" />
-</form>
+<div class="input-group">
+  <div class="form-outline">
+
+    <input id="search-input" type="search" id="form1" class="form-control" name="playlist_name" placeholder="Playlist Name"/>
+    <label class="form-label" for="form1"></label>
+  </div>
+  <button id="search-button" type="submit" class="btn btn-primary center">
+    <i class="fas fa-paper-plane"></i>
+  </button>
+</div>
+    </form>
+<!--<form method="POST" action="">-->
+<!--    <div>Enter Playlist name</div>: <input type="text" name="" placeholder="Playlist Name"/>-->
+<!--    <br>-->
+<!--    <input type="submit" />-->
+<!--</form>-->
 
 {% endblock %}>

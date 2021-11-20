@@ -24,6 +24,17 @@ a:focus {
     transition: all 0.3s;
 }
 
+.header1{
+padding:10px;
+margin:12px;
+}
+.name{
+display:block;
+text-align:center;
+justified:center;
+}
+
+
 .navbar {
     padding: 15px 10px;
     background: #fff;
@@ -32,6 +43,8 @@ a:focus {
     margin-bottom: 40px;
     box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
 }
+
+
 
 .navbar-btn {
     box-shadow: none;
@@ -59,18 +72,22 @@ a:focus {
 #sidebar {
     min-width: 250px;
     max-width: 250px;
-    background: #000000;
-    color: #fafafa;
+    background: #fee715ff;
+    color: #000000;
     transition: all 0.3s;
+    white-space:nowrap;
+    position:relative;
 }
 
 #sidebar.active {
     margin-left: -250px;
+
 }
 
 #sidebar .sidebar-header {
     padding: 20px;
-    background: #000000;
+    background: #8b0000;
+    color:#000000;
 }
 
 #sidebar ul.components {
@@ -163,21 +180,49 @@ a.article:hover {
 /* Top left text */
 .top-left {
   position: absolute;
-  top: 8px;
-  left: 16px;
+  top: 40px;
+  left: 300px;
 }
 
 /*Songs search bar*/
 .input-group {
 
-  position:absolute;
+  position:relative;
   top:20%;
-  left:80%;
-
+  left:0%;
+  width:30%
 }
 .btn-primary{
 height:fit-content;
-background-color:#17a2b8;
+background-color:#d21404;
+border:none;
+}
+.btn-primary:hover{
+height:fit-content;
+background-color:black;
+border:none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+
+
+.playlists {
+  float: left;
+  width: 30%;
+  padding: 20px;
+  margin:10px;
+  height: 50px; /* Should be removed. Only for demonstration */
+  border: 1px solid red ;
+}
+
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
 }
 
 

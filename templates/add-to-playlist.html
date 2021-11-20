@@ -5,19 +5,25 @@
 {% endblock %}
 
 {% block content %}
-<h1>Search Song</h1>
+<h4 style="color:white;">Search Song</h4>
 <form method="POST" action="">
-    Enter Song name: <input type="text" name="song_name" />
-    <br>
-    <input type="submit" />
+<div class="input-group">
+  <div class="form-outline">
 
-</form>
+    <input id="search-input" type="search" id="form1" class="form-control" name="song_name" placeholder="Song name"/>
+    <label class="form-label" for="form1"></label>
+  </div>
+  <button id="search-button" type="submit" class="btn btn-primary center">
+    <i class="fas fa-paper-plane"></i>
+  </button>
+</div>
+
 {% if exists %}
-<h2>This song already exists in the playlist</h2>
+<h2 style="color:white;">This song already exists in the playlist</h2>
 {% endif %}
 {% if song_info %}
 
-<h2>Your song has been added successfully!</h2>
+<h2 style="color:white;">Your song has been added successfully!</h2>
 
 {% endif %}
 {% endblock %}>

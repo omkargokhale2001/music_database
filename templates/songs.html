@@ -5,14 +5,14 @@
 {% endblock %}
 
 {% block content %}
-<h2>Songs</h2>
+<h2 style="color:white;">Songs</h2>
 <form method="POST" action="">
 <div class="input-group">
   <div class="form-outline">
     <input id="search-input" type="search" id="form1" class="form-control" name="name" placeholder="Search Songs"/>
     <label class="form-label" for="form1"></label>
   </div>
-  <button id="search-button" type="submit" class="btn btn-primary">
+  <button id="search-button" type="submit" class="btn btn-primary center">
     <i class="fas fa-search"></i>
   </button>
 </div>
@@ -23,26 +23,26 @@
 <iframe width="560" height="315" src={{url}} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 {% endif %}
 {% if names %}
-{% for i in range(0,6,3) %}
+<div style="justify-content:space-between;margin-left:50px;">
+{% for i in range(0,8) %}
+<iframe style="margin:50px" width="560" height="315" src={{urls[i]}} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<!--<div class="container">-->
+<!--    <div class="row">-->
+<!--                    <div class="col-lg-6 col-md-12 col-sm-12">-->
+<!--                        <h3>{{names[i]}}</h3>-->
+<!--                        <iframe width="400" height="315" src={{urls[i]}} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>-->
+<!--                    </div>-->
+<!--                    <div class="col-lg-6 col-md-12 col-sm-12">-->
+<!--                        <h3>{{names[i+1]}}</h3>-->
+<!--                        <iframe width="400" height="315" src={{urls[i+1]}} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>-->
+<!--                    </div>-->
 
-<div class="container">
-    <div class="row">
-                    <div class="col-lg-4 col-md-6 col-sm-12">
-                        <h3>{{names[i]}}</h3>
-                        <iframe width="350" height="315" src={{urls[i]}} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-sm-12">
-                        <h3>{{names[i+1]}}</h3>
-                        <iframe width="350" height="315" src={{urls[i+1]}} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-sm-12">
-                        <h3>{{names[i+2]}}</h3>
-                        <iframe width="350" height="315" src={{urls[i+2]}} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                    </div>
 
-    </div>
-</div>
+<!--    </div>-->
+<!--</div>-->
 
 {% endfor %}
+
+</div>
 {% endif %}
 {% endblock %}>

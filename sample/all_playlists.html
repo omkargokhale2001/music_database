@@ -7,8 +7,34 @@
 <body>
 <h1>All playlists</h1>
 <a href="/create_playlist"><button>New Playlist</button></a>
-{% for p in playlists %}
-<h2><a href="all_playlists/{{p}}">{{ p }}</a></h2>
+{% for p in range(len(playlists)) %}
+<div class="row">
+  <div class="column" style="background-color:#ccc;">
+    <h2><a href="all_playlists/{{p}}">{{ playlists[p] }}</a></h2>
+    <p>Some text..</p>
+  </div>
+
 {% endfor %}
 </body>
 </html>
+
+
+
+
+
+
+<!--  <div class="column" style="background-color:#ccc;">-->
+<!--    <h2>Column 2</h2>-->
+<!--    <p>Some text..</p>-->
+<!--  </div>-->
+<!--  <div class="column" style="background-color:#ccc;">-->
+<!--    <h2>Column 3</h2>-->
+<!--    <p>Some text..</p>-->
+<!--  </div>-->
+<!--  <div class="column" style="background-color:#ccc;">-->
+<!--    <h2>Column 4</h2>-->
+<!--    <p>Some text..</p>-->
+<!--  </div>-->
+<!--</div>-->
+
+<!--</bod-->

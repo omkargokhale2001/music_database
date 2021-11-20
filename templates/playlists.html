@@ -5,9 +5,14 @@
 {% endblock %}
 
 {% block content %}
-<h1>All playlists</h1>
-<a href="/create_playlist"><button>New Playlist</button></a>
+<h1 style="color:white;">All playlists</h1>
+<br>
+<a href="/create_playlist"><button style="background:#d21404;color:black;font-size:2rem;padding:5px;border-radius:50%;width:3.8rem;border:1px solid black">+</button></a>
+<br>
 {% for i in range(1,len) %}
-<h2><a href="all_playlists/{{playlists[i]}}">{{ playlists[i] }}</a></h2>
+<div style="color:#ecebe8;margin:20px;padding:10px;background-color:black;width:25%;text-align:center;box-shadow:3px 3px #303030;">
+    <h2 style="text-align:center;"><a href="all_playlists/{{playlists[i]}}">{{ playlists[i] }}</a></h2>
+</div>
+
 {% endfor %}
 {% endblock %}>

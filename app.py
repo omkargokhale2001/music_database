@@ -134,7 +134,7 @@ def search_song():
         return render_template('songs.html', result=result, url=song_url)
     else:
         cur = mysql.connection.cursor()
-        cur.execute("SELECT * FROM Songs ORDER BY RAND() LIMIT 6")
+        cur.execute("SELECT * FROM Songs ORDER BY RAND() LIMIT 8")
         song_details = cur.fetchall()
         print(song_details)
         names = []

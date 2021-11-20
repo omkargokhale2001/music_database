@@ -38,6 +38,7 @@
 </head>
 
 <body>
+<div class="bg-img-2">
 <div class="wrapper fadeInDown">
   <div id="formContent">
     <!-- Tabs Titles -->
@@ -46,7 +47,9 @@
     <div class="fadeIn first">
 <!--      <img src="http://danielzawadzki.com/codepen/01/icon.svg" id="icon" alt="User Icon" />-->
     </div>
-
+<div class="header1">
+    <h3>Sign Up</h3>
+</div>
     <!-- Login Form -->
     <form action="{{ url_for('register') }}" method="post">
       <div class="msg">{{ msg }}</div>
@@ -60,6 +63,7 @@
     <p class="bottom">Already have an account?  <a class="bottom" href="{{url_for('login')}}"> Sign In here</a></p>
 
   </div>
+</div>
 </div>
 </body>
 </html>

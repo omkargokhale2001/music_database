@@ -5,13 +5,13 @@
 {% endblock %}
 
 {% block content %}
-<h1>{{name}}</h1>
-<a href="/all_playlists/{{name}}/add_songs"><button>Add song</button></a>
+<h1 style="color:white;">{{name}}</h1>
+<a href="/all_playlists/{{name}}/add_songs"><button style="background:#d21404;border:1px solid black;color:black;font-size:2rem;padding:5px;border-radius:50%;width:3.8rem">+</button></a>
 {% if names %}
-<h1>{{artist_name}}</h1>
+<h1 style="color:white;">{{artist_name}}</h1>
 {% for i in range(names[-1]) %}
 <div>
-    <h2>{{names[i]}}</h2>
+    <h2 style="color:white;">{{names[i]}}</h2>
     <iframe width="560" height="315" src={{urls[i]}} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
 <hr>
